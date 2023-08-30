@@ -1,0 +1,84 @@
+SQL code
+
+Cliente_PF {
+	idClientePF integer pk
+	Nome varchar(45)
+	Identificação varchar(45)
+	Endereço varchar(45)
+}
+
+Pedido {
+	idPedido integer pk
+	Status varchar(45)
+	Descrição varchar(45)
+	Cliente_idClientePJ integer > Cliente_PJ.idClientePJ
+	Cliente_idClientePF integer > Cliente_PF.idClientePF
+	Frete float
+	Pagamento_idPagamento integer > Pagamento.idPagamento
+}
+
+Produto {
+	idProduto integer pk
+	Categoria varchar(45)
+	Descrição varchar(45)
+	Valor varchar(45)
+}
+
+Fornecnedor {
+	idFornecedor integer pk
+	Reunião varchar(45)
+	CNPJ varchar(45)
+}
+
+Disponibilizando {
+	Fornecedor_idFornecedor integer pk > Fornecnedor.idFornecedor
+	Produto_idProduto integer pk > Produto.idProduto
+}
+
+Estoque {
+	idEstoque integer pk
+	Local varchar(45)
+}
+
+Produto_has_estoque {
+	Produto_idProduto integer pk > Produto.idProduto
+	Estoque_idEstoque integer pk > Estoque.idEstoque
+	Quantidade integer
+}
+
+Produto_has_pedido {
+	Produto_idProduto integer > Produto.idProduto
+	Pedido_idPedido integer > Pedido.idPedido
+	Pedido_cliente_idCliente integer
+	Quantidade varchar(45)
+}
+
+Terceiro {
+	Terceiro integer > Terceiro.idTerceiro
+	Produto_idProduto integer > Produto.idProduto
+}
+
+terceiro {
+	idTerceiro integer pk > Terceiro.Terceiro
+	razão varchar(45) pk
+	local varchar(45)
+}
+
+Cliente_PJ {
+	idClientePJ integer pk
+	Nome varchar(45)
+	Identificação varchar(45)
+	Endereço varchar(45)
+}
+
+Pagamento {
+	idPagamento integer pk increments
+	cartão integer
+	Boleto integer
+}
+
+Entrega {
+	idEntrega integer pk *> Pedido.idPedido
+	Status varchar
+	Codigo integer
+}
