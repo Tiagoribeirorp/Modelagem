@@ -1,2 +1,74 @@
 # Oficina 
 Projeto de modelagem de base de dados da DIO, o projeto consiste em fazer uma modelagem de uma oficina mecânica 
+
+
+Cliente {
+	idCliente integer pk > Veiculo.idCliente
+	Cpf_Cnpj integer
+	Nome varchar(45)
+	Endereço varchar(45)
+}
+
+Veiculo {
+	idVeiculo integer pk
+	Placa varchar(12)
+	Tipo varchar(45)
+	Marca varchar(12)
+	idCliente integer
+}
+
+Agendamento {
+	idServiço integer increments >* Serviço.idServiço
+	DataAgendamento datetime
+}
+
+Status {
+	idStatus integer pk
+	Descrição varchar(45)
+}
+
+Serviço {
+	idServiço integer pk
+	idVeiculo integer > Veiculo.idVeiculo
+	Status_idStatus integer > Status.idStatus
+	Data datetime
+}
+
+ServiçoEquipe {
+	idServiço integer *> Serviço.idServiço
+	idEquipe integer > Equipe.idEquipe
+	Data datetime
+	Avaliação varchar(45)
+}
+
+EquipeMecanico {
+	idEquipe integer *> Equipe.idEquipe
+	idMecanico integer > Mecanico.idMecanico
+}
+
+Mecanico {
+	idMecanico integer pk
+	Nome varchar(45)
+	Endereço varchar(45)
+	Fone varchar(12)
+	idEspecialidade integer
+}
+
+Especialidade {
+	idEspecialidade integer pk >* Mecanico.idEspecialidade
+	Descrição varchar(45)
+}
+
+OS {
+	idServiço integer > ServiçoEquipe.idServiço
+	Data date
+	data integer
+	Autorizada integer
+}
+
+Equipe {
+	idEquipe integer pk increments
+	data datetime
+	dataencerramento datetime
+}
+
